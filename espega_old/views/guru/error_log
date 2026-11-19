@@ -1,0 +1,3 @@
+[12-Feb-2026 10:09:21 Asia/Jakarta] PHP Warning:  Array to string conversion in /home/sekh2888/public_html/pinjam.sekolahislamalfutuh.com/views/guru/dashboard.php on line 96
+[12-Feb-2026 10:09:39 Asia/Jakarta] PHP Parse error:  syntax error, unexpected token ",", expecting "]" in /home/sekh2888/public_html/pinjam.sekolahislamalfutuh.com/views/guru/dashboard.php on line 96
+[12-Feb-2026 10:09:42 Asia/Jakarta] PHP Parse error:  syntax error, unexpected token ",", expecting "]" in /home/sekh2888/public_html/pinjam.sekolahislamalfutuh.com/views/guru/dashboard.php on line 96
