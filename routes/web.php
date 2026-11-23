@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 // Dynamic Stream Fallback for Legacy Question Images
 Route::get('/assets/img/soal/{filename}', function ($filename) {
-    $path = public_path('assets/img/soal/' . $filename);
-    if (!File::exists($path)) {
-        $path = base_path('espega_old/assets/img/soal/' . $filename);
+    $path = public_path('assets/img/soal/'.$filename);
+    if (! File::exists($path)) {
+        $path = base_path('espega_old/assets/img/soal/'.$filename);
     }
     if (File::exists($path)) {
         return response()->file($path);
@@ -30,9 +30,9 @@ Route::get('/assets/img/soal/{filename}', function ($filename) {
 Route::get('/assets/img/logo-espega.png', function () {
     $uploaded = 'C:/Users/PC-ESPEGA CANDRA/.gemini/antigravity/brain/a1c0231b-f73a-4f48-848f-82565028b109/.user_uploaded/media_1794463450830_9c7c4028.jpg';
     $targetDir = public_path('assets/img');
-    $target = $targetDir . '/logo-espega.png';
-    if (!File::exists($target) && File::exists($uploaded)) {
-        if (!File::isDirectory($targetDir)) {
+    $target = $targetDir.'/logo-espega.png';
+    if (! File::exists($target) && File::exists($uploaded)) {
+        if (! File::isDirectory($targetDir)) {
             File::makeDirectory($targetDir, 0755, true);
         }
         File::copy($uploaded, $target);
@@ -130,6 +130,13 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::delete('/student-administration/{student}/documents/{document}', [Admin\StudentAdministrationController::class, 'destroyDocument'])->name('student_administration.documents.destroy');
     Route::post('/student-administration/document-types', [Admin\StudentAdministrationController::class, 'storeDocumentType'])->name('student_administration.document_types.store');
 
+    // Absensi siswa harian
+    Route::get('/attendance', [Admin\StudentAttendanceController::class, 'index'])->name('attendance.index');
+    Route::get('/attendance/monthly', [Admin\StudentAttendanceController::class, 'monthly'])->name('attendance.monthly');
+    Route::get('/attendance/monthly/export/pdf', [Admin\StudentAttendanceController::class, 'exportMonthlyPdf'])->name('attendance.monthly.export_pdf');
+    Route::post('/attendance', [Admin\StudentAttendanceController::class, 'store'])->name('attendance.store');
+    Route::get('/attendance/export/pdf', [Admin\StudentAttendanceController::class, 'exportPdf'])->name('attendance.export_pdf');
+
     // Manajemen Guru
     Route::get('/users/guru', [Admin\UserController::class, 'guru'])->name('users.guru');
     Route::post('/users/guru', [Admin\UserController::class, 'storeGuru'])->name('users.store_guru');
@@ -159,6 +166,12 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
 // 4. Modul Guru Pengampu
 Route::prefix('guru')->name('guru.')->middleware(['auth', 'role:guru'])->group(function () {
     Route::get('/dashboard', [Guru\DashboardController::class, 'index'])->name('dashboard');
+
+    // Arsip dokumen administrasi pribadi guru
+    Route::get('/administrasi', [Guru\AdministrationController::class, 'index'])->name('administration.index');
+    Route::post('/administrasi', [Guru\AdministrationController::class, 'store'])->name('administration.store');
+    Route::get('/administrasi/{document}/download', [Guru\AdministrationController::class, 'download'])->name('administration.download');
+    Route::delete('/administrasi/{document}', [Guru\AdministrationController::class, 'destroy'])->name('administration.destroy');
 
     // Paket Bank Soal Guru
     Route::get('/bank-soal', [Guru\BankSoalController::class, 'index'])->name('bank_soal.index');

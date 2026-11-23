@@ -5,8 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -39,9 +41,9 @@ class User extends Authenticatable
      */
     public function setPasswordAttribute($value)
     {
-        if (!empty($value)) {
-            $this->attributes['password'] = \Illuminate\Support\Facades\Hash::needsRehash($value)
-                ? \Illuminate\Support\Facades\Hash::make($value)
+        if (! empty($value)) {
+            $this->attributes['password'] = Hash::needsRehash($value)
+                ? Hash::make($value)
                 : $value;
         }
     }
@@ -51,7 +53,7 @@ class User extends Authenticatable
         static::saving(function ($user) {
             // Pastikan password selalu terisi dan ter-hash
             if (empty($user->password)) {
-                $secret = !empty($user->token) ? $user->token : ($user->username ?: '123456');
+                $secret = ! empty($user->token) ? $user->token : ($user->username ?: '123456');
                 $user->password = $secret; // Melewati setPasswordAttribute sehingga otomatis di-hash
             }
         });
@@ -135,7 +137,7 @@ class User extends Authenticatable
         return $this->hasMany(StudentClassHistory::class, 'user_id')->orderBy('id', 'desc');
     }
 
-    public function studentProfile(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function studentProfile(): HasOne
     {
         return $this->hasOne(StudentProfile::class, 'user_id');
     }
@@ -143,6 +145,16 @@ class User extends Authenticatable
     public function studentDocuments(): HasMany
     {
         return $this->hasMany(StudentDocument::class, 'user_id');
+    }
+
+    public function guruAdministrations(): HasMany
+    {
+        return $this->hasMany(GuruAdministration::class, 'user_id');
+    }
+
+    public function studentAttendances(): HasMany
+    {
+        return $this->hasMany(StudentAttendance::class, 'user_id');
     }
 
     /**
@@ -173,16 +185,16 @@ class User extends Authenticatable
 
     public function isAlumni(): bool
     {
-        return $this->isSiswa() && ($this->status_siswa === 'alumni' || $this->kelas === 'Alumni' || !empty($this->tahun_lulus_id));
+        return $this->isSiswa() && ($this->status_siswa === 'alumni' || $this->kelas === 'Alumni' || ! empty($this->tahun_lulus_id));
     }
 
     public function isSiswaAktif(): bool
     {
-        return $this->isSiswa() && !$this->isAlumni() && ($this->status_siswa === 'aktif' || empty($this->status_siswa));
+        return $this->isSiswa() && ! $this->isAlumni() && ($this->status_siswa === 'aktif' || empty($this->status_siswa));
     }
 
     public function isBlocked(): bool
     {
-        return (string)$this->status_blokir === '1';
+        return (string) $this->status_blokir === '1';
     }
 }

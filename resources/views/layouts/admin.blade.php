@@ -20,7 +20,7 @@
     <aside id="sidebar" class="w-64 bg-slate-900 text-slate-300 flex flex-col shrink-0 transition-all duration-300 z-40 fixed md:static inset-y-0 -left-64 md:left-0 shadow-xl md:shadow-none">
         <!-- Brand Header -->
         <div class="h-20 flex items-center gap-3 px-6 bg-slate-950 border-b border-slate-800/80 shrink-0">
-            <img src="/assets/img/logo-espega.png" alt="Logo SMPN 3 Ngawen" class="w-10 h-10 object-contain shrink-0">
+            <img src="/assets/img/logo-espega.png" alt="Logo SMPN 3 Ngawen" class="w-10 h-10 object-contain rounded-xl shrink-0">
             <div>
                 <span class="block text-base font-extrabold text-white tracking-tight leading-tight">ESPEGA SINAU</span>
                 <span class="block text-[10px] font-bold text-brand-400 tracking-widest uppercase">Admin Panel</span>
@@ -57,6 +57,10 @@
             <a href="{{ route('admin.rombels.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-colors {{ request()->routeIs('admin.rombels.*') ? 'bg-brand-600 text-white font-bold shadow-sm' : 'hover:bg-slate-800 text-slate-400 hover:text-white' }}">
                 <i class="fa-solid fa-chalkboard w-5 text-center"></i>
                 <span>Daftar Rombel / Kelas</span>
+            </a>
+            <a href="{{ route('admin.attendance.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-colors {{ request()->routeIs('admin.attendance.*') ? 'bg-brand-600 text-white font-bold shadow-sm' : 'hover:bg-slate-800 text-slate-400 hover:text-white' }}">
+                <i class="fa-solid fa-clipboard-user w-5 text-center"></i>
+                <span>Absensi Siswa</span>
             </a>
             <a href="{{ route('admin.subjects.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-colors {{ request()->routeIs('admin.subjects.*') ? 'bg-brand-600 text-white font-bold shadow-sm' : 'hover:bg-slate-800 text-slate-400 hover:text-white' }}">
                 <i class="fa-solid fa-book-bookmark w-5 text-center"></i>

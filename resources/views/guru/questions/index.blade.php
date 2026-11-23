@@ -3,7 +3,7 @@
 @section('page_title', 'Kelola Butir Soal - ' . $bank->nama_bank)
 
 @section('content')
-<div class="space-y-6">
+<div class="space-y-4 sm:space-y-6">
 
     <!-- Header & Action Buttons -->
     <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
@@ -13,27 +13,27 @@
                     <i class="fa-solid fa-arrow-left"></i> Kembali ke Bank Soal
                 </a>
             </div>
-            <h2 class="text-xl font-bold text-slate-900">{{ $bank->nama_bank }}</h2>
-            <p class="text-xs text-slate-500 mt-0.5">
+            <h2 class="break-words text-lg sm:text-xl font-bold text-slate-900">{{ $bank->nama_bank }}</h2>
+            <p class="mt-1 text-sm leading-relaxed text-slate-500 sm:text-xs">
                 Mata Pelajaran: <strong>{{ $bank->subject->nama_mapel ?? '-' }}</strong> • Sasaran: <strong>{{ $bank->kelas_rilis ?: 'Draft (Belum Rilis)' }}</strong> • Total: <strong>{{ $questions->count() }} Butir Soal</strong>
             </p>
         </div>
 
         <div class="flex flex-wrap items-center gap-2">
             <!-- Export PDF -->
-            <a href="{{ route('guru.questions.export_pdf', $bank) }}" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-sm transition-colors" title="Export PDF Siap Cetak (2 Kolom + Kunci)">
+            <a href="{{ route('guru.questions.export_pdf', $bank) }}" target="_blank" class="inline-flex min-h-11 items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-sm transition-colors" title="Export PDF Siap Cetak (2 Kolom + Kunci)">
                 <i class="fa-solid fa-file-pdf text-xs"></i>
                 <span>Cetak PDF</span>
             </a>
 
             <!-- Export Excel -->
-            <a href="{{ route('guru.questions.export_excel', $bank) }}" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-sm transition-colors" title="Export ke Spreadsheet Excel">
+            <a href="{{ route('guru.questions.export_excel', $bank) }}" class="inline-flex min-h-11 items-center gap-1.5 px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-sm transition-colors" title="Export ke Spreadsheet Excel">
                 <i class="fa-solid fa-file-excel text-xs"></i>
                 <span>Export Excel</span>
             </a>
 
             <!-- Import Soal Excel -->
-            <button type="button" onclick="openModal('importSoalModal')" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shadow-sm transition-colors">
+            <button type="button" onclick="openModal('importSoalModal')" class="inline-flex min-h-11 items-center gap-1.5 px-3 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shadow-sm transition-colors">
                 <i class="fa-solid fa-file-import text-xs"></i>
                 <span>Import Soal</span>
             </button>
@@ -41,7 +41,7 @@
             <!-- Acak Semua Soal -->
             <form action="{{ route('guru.questions.acak_semua', $bank) }}" method="POST" onsubmit="return confirm('Acak urutan seluruh butir soal di paket ini?');" class="inline">
                 @csrf
-                <button type="submit" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow-sm transition-colors" title="Acak urutan semua butir soal">
+                <button type="submit" class="inline-flex min-h-11 items-center gap-1.5 px-3 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow-sm transition-colors" title="Acak urutan semua butir soal">
                     <i class="fa-solid fa-shuffle text-xs"></i>
                     <span>Acak Semua</span>
                 </button>
@@ -50,14 +50,14 @@
             <!-- Reset Urutan -->
             <form action="{{ route('guru.questions.reset_urutan', $bank) }}" method="POST" onsubmit="return confirm('Kembalikan urutan butir soal ke nomor ID default?');" class="inline">
                 @csrf
-                <button type="submit" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-100 font-bold text-xs shadow-sm transition-colors" title="Reset urutan nomor soal">
+                <button type="submit" class="inline-flex min-h-11 items-center gap-1.5 px-3 py-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-100 font-bold text-xs shadow-sm transition-colors" title="Reset urutan nomor soal">
                     <i class="fa-solid fa-rotate-left text-xs"></i>
                     <span>Reset Urutan</span>
                 </button>
             </form>
 
             <!-- Tambah Soal Manual -->
-            <button type="button" onclick="openModal('addSoalModal')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white font-bold text-xs shadow transition-colors">
+            <button type="button" onclick="openModal('addSoalModal')" class="inline-flex min-h-11 items-center gap-2 px-3.5 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white font-bold text-xs shadow transition-colors">
                 <i class="fa-solid fa-plus text-xs"></i>
                 <span>Tambah Soal</span>
             </button>
@@ -69,23 +69,23 @@
         @csrf
         <input type="hidden" name="action_type" id="bulkQuestionActionType" value="">
 
-        <div id="bulkQuestionBar" class="hidden p-3 bg-cyan-50 border border-cyan-200 rounded-2xl flex flex-wrap items-center justify-between gap-3 shadow-sm transition-all animate-fadeIn">
+        <div id="bulkQuestionBar" class="hidden p-3 bg-cyan-50 border border-cyan-200 rounded-2xl flex flex-col sm:flex-row flex-wrap items-start sm:items-center justify-between gap-3 shadow-sm transition-all animate-fadeIn">
             <div class="flex items-center gap-2">
                 <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-cyan-600 text-white text-xs font-bold" id="selectedQuestionCount">0</span>
                 <span class="text-xs font-bold text-slate-800">Butir soal terpilih:</span>
             </div>
             <div class="flex flex-wrap items-center gap-2">
-                <button type="button" onclick="submitBulkQuestion('acak')" class="px-3 py-1.5 rounded-xl bg-white border border-purple-200 text-purple-700 hover:bg-purple-50 font-bold text-xs transition flex items-center gap-1.5">
+                <button type="button" onclick="submitBulkQuestion('acak')" class="min-h-11 px-3 py-1.5 rounded-xl bg-white border border-purple-200 text-purple-700 hover:bg-purple-50 font-bold text-xs transition flex items-center gap-1.5">
                     <i class="fa-solid fa-shuffle"></i> Acak Urutan Terpilih
                 </button>
-                <button type="button" onclick="submitBulkQuestion('delete')" class="px-3 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs transition flex items-center gap-1.5">
+                <button type="button" onclick="submitBulkQuestion('delete')" class="min-h-11 px-3 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs transition flex items-center gap-1.5">
                     <i class="fa-solid fa-trash-can"></i> Hapus Terpilih
                 </button>
             </div>
         </div>
 
         @if($questions->isNotEmpty())
-        <div class="flex items-center justify-between px-2 pt-2 text-xs text-slate-500 font-semibold">
+        <div class="flex flex-col gap-2 px-2 pt-2 text-xs text-slate-500 font-semibold sm:flex-row sm:items-center sm:justify-between">
             <label class="flex items-center gap-2 cursor-pointer select-none">
                 <input type="checkbox" id="selectAllQuestions" onchange="toggleSelectAllQuestions(this)" class="w-4 h-4 rounded text-cyan-600 focus:ring-cyan-500 border-slate-300">
                 <span>Pilih Semua Soal (Multiple Select)</span>
@@ -97,21 +97,21 @@
         <!-- Questions List -->
         <div class="space-y-4">
             @forelse($questions as $index => $q)
-            <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4 hover:border-cyan-300 transition-colors">
-                <div class="flex items-start justify-between gap-4">
-                    <div class="flex items-center gap-3">
+            <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 shadow-sm space-y-4 hover:border-cyan-300 transition-colors">
+                <div class="flex items-start justify-between gap-2 sm:gap-4">
+                    <div class="flex min-w-0 items-center gap-2 sm:gap-3">
                         <input type="checkbox" name="selected_ids[]" value="{{ $q->id }}" onchange="updateSelectedQuestionCount()" class="question-checkbox w-4 h-4 rounded text-cyan-600 focus:ring-cyan-500 border-slate-300 mt-0.5">
                         <span class="w-8 h-8 rounded-xl bg-cyan-50 text-cyan-700 font-bold font-mono text-sm flex items-center justify-center shrink-0 border border-cyan-100">
                             {{ $q->urutan ?: ($index + 1) }}
                         </span>
-                        <div>
+                        <div class="min-w-0">
                             <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Butir Soal #{{ $index + 1 }}</span>
-                            <span class="text-[10px] text-slate-400 font-mono ml-2">(ID: #{{ $q->id }})</span>
+                            <span class="block text-[10px] text-slate-400 font-mono sm:inline sm:ml-2">(ID: #{{ $q->id }})</span>
                         </div>
                     </div>
 
-                    <div class="flex items-center gap-2">
-                        <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold font-mono">
+                    <div class="flex shrink-0 items-center gap-1 sm:gap-2">
+                        <span class="px-2 sm:px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] sm:text-xs font-bold font-mono">
                             Kunci: {{ $q->kunci_jawaban }}
                         </span>
 
@@ -128,19 +128,19 @@
                 </div>
 
                 <!-- Teks Pertanyaan -->
-                <div class="text-sm font-semibold text-slate-900 leading-relaxed pl-11">
+                <div class="break-words text-sm font-semibold text-slate-900 leading-relaxed sm:pl-11">
                     {!! nl2br(e($q->pertanyaan)) !!}
                 </div>
 
                 <!-- Gambar Pertanyaan jika ada -->
                 @if($q->img_pertanyaan)
-                <div class="pl-11">
-                    <img src="{{ $q->getImageUrl($q->img_pertanyaan) }}" alt="Gambar Soal" class="max-h-60 rounded-xl border border-slate-200 shadow-sm object-contain bg-slate-50 p-1">
+                <div class="sm:pl-11">
+                    <img src="{{ $q->getImageUrl($q->img_pertanyaan) }}" alt="Gambar Soal" class="max-h-60 max-w-full rounded-xl border border-slate-200 shadow-sm object-contain bg-slate-50 p-1">
                 </div>
                 @endif
 
                 <!-- Pilihan Jawaban A, B, C, D, E (Teks & Gambar Pilihan) -->
-                <div class="grid sm:grid-cols-2 gap-3 pl-11 pt-2 text-xs">
+                <div class="grid sm:grid-cols-2 gap-3 pt-2 text-xs sm:pl-11">
                     @foreach(['A', 'B', 'C', 'D', 'E'] as $opt)
                         @php
                             $optKey = strtolower($opt);
@@ -166,7 +166,7 @@
                 </div>
             </div>
             @empty
-            <div class="bg-white rounded-3xl p-12 text-center text-slate-400 border border-slate-200">
+            <div class="bg-white rounded-xl sm:rounded-3xl p-8 sm:p-12 text-center text-sm text-slate-400 border border-slate-200">
                 <i class="fa-solid fa-file-circle-question text-4xl mb-3 text-slate-300"></i>
                 <p>Belum ada butir soal di dalam paket ini. Klik tombol "Tambah Soal" atau "Import Soal" di atas.</p>
             </div>
@@ -186,7 +186,7 @@
 
 <!-- Modal Import Soal Excel -->
 <div id="importSoalModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4 overflow-y-auto" role="dialog" aria-modal="true">
-    <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl space-y-5 my-auto relative animate-fadeIn" onclick="event.stopPropagation()">
+    <div class="bg-white rounded-xl sm:rounded-3xl p-4 sm:p-8 max-w-lg w-full shadow-2xl space-y-5 my-auto relative animate-fadeIn" onclick="event.stopPropagation()">
         <div class="flex items-center justify-between pb-3 border-b border-slate-100">
             <div>
                 <h3 class="font-extrabold text-slate-900 text-lg">Import Soal dari Excel</h3>
@@ -235,7 +235,7 @@
 
 <!-- Modal Tambah Butir Soal Baru (Dengan Gambar Soal & Pilihan A-E) -->
 <div id="addSoalModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4 overflow-y-auto" role="dialog" aria-modal="true">
-    <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl space-y-5 my-auto relative animate-fadeIn" onclick="event.stopPropagation()">
+    <div class="bg-white rounded-xl sm:rounded-3xl p-4 sm:p-8 max-w-3xl w-full max-h-[90dvh] overflow-y-auto shadow-2xl space-y-5 my-auto relative animate-fadeIn" onclick="event.stopPropagation()">
         <div class="flex items-center justify-between pb-3 border-b border-slate-100">
             <div>
                 <h3 class="font-extrabold text-slate-900 text-lg">Tambah Butir Soal Baru</h3>
@@ -269,7 +269,7 @@
                         <span class="w-6 h-6 rounded-full bg-slate-200 text-slate-800 font-bold flex items-center justify-center font-mono text-xs">A</span>
                         <input type="text" name="pil_a" required placeholder="Teks Pilihan A" class="flex-1 px-3 py-1.5 rounded-lg border border-slate-200 text-xs bg-white focus:ring-2 focus:ring-cyan-500 focus:outline-none">
                     </div>
-                    <div class="pl-8 flex items-center gap-2">
+                    <div class="flex min-w-0 flex-col gap-1 pl-8 sm:flex-row sm:items-center sm:gap-2">
                         <label class="text-[11px] text-slate-500 font-medium shrink-0">Gambar Pilihan A:</label>
                         <input type="file" name="img_a" accept="image/*" class="text-[11px] text-slate-500 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-[11px] file:bg-white file:border-slate-200 file:text-slate-700">
                     </div>
@@ -281,7 +281,7 @@
                         <span class="w-6 h-6 rounded-full bg-slate-200 text-slate-800 font-bold flex items-center justify-center font-mono text-xs">B</span>
                         <input type="text" name="pil_b" required placeholder="Teks Pilihan B" class="flex-1 px-3 py-1.5 rounded-lg border border-slate-200 text-xs bg-white focus:ring-2 focus:ring-cyan-500 focus:outline-none">
                     </div>
-                    <div class="pl-8 flex items-center gap-2">
+                    <div class="flex min-w-0 flex-col gap-1 pl-8 sm:flex-row sm:items-center sm:gap-2">
                         <label class="text-[11px] text-slate-500 font-medium shrink-0">Gambar Pilihan B:</label>
                         <input type="file" name="img_b" accept="image/*" class="text-[11px] text-slate-500 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-[11px] file:bg-white file:border-slate-200 file:text-slate-700">
                     </div>
@@ -293,7 +293,7 @@
                         <span class="w-6 h-6 rounded-full bg-slate-200 text-slate-800 font-bold flex items-center justify-center font-mono text-xs">C</span>
                         <input type="text" name="pil_c" placeholder="Teks Pilihan C" class="flex-1 px-3 py-1.5 rounded-lg border border-slate-200 text-xs bg-white focus:ring-2 focus:ring-cyan-500 focus:outline-none">
                     </div>
-                    <div class="pl-8 flex items-center gap-2">
+                    <div class="flex min-w-0 flex-col gap-1 pl-8 sm:flex-row sm:items-center sm:gap-2">
                         <label class="text-[11px] text-slate-500 font-medium shrink-0">Gambar Pilihan C:</label>
                         <input type="file" name="img_c" accept="image/*" class="text-[11px] text-slate-500 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-[11px] file:bg-white file:border-slate-200 file:text-slate-700">
                     </div>
@@ -305,7 +305,7 @@
                         <span class="w-6 h-6 rounded-full bg-slate-200 text-slate-800 font-bold flex items-center justify-center font-mono text-xs">D</span>
                         <input type="text" name="pil_d" placeholder="Teks Pilihan D" class="flex-1 px-3 py-1.5 rounded-lg border border-slate-200 text-xs bg-white focus:ring-2 focus:ring-cyan-500 focus:outline-none">
                     </div>
-                    <div class="pl-8 flex items-center gap-2">
+                    <div class="flex min-w-0 flex-col gap-1 pl-8 sm:flex-row sm:items-center sm:gap-2">
                         <label class="text-[11px] text-slate-500 font-medium shrink-0">Gambar Pilihan D:</label>
                         <input type="file" name="img_d" accept="image/*" class="text-[11px] text-slate-500 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-[11px] file:bg-white file:border-slate-200 file:text-slate-700">
                     </div>
@@ -317,7 +317,7 @@
                         <span class="w-6 h-6 rounded-full bg-slate-200 text-slate-800 font-bold flex items-center justify-center font-mono text-xs">E</span>
                         <input type="text" name="pil_e" placeholder="Teks Pilihan E (Opsional)" class="flex-1 px-3 py-1.5 rounded-lg border border-slate-200 text-xs bg-white focus:ring-2 focus:ring-cyan-500 focus:outline-none">
                     </div>
-                    <div class="pl-8 flex items-center gap-2">
+                    <div class="flex min-w-0 flex-col gap-1 pl-8 sm:flex-row sm:items-center sm:gap-2">
                         <label class="text-[11px] text-slate-500 font-medium shrink-0">Gambar Pilihan E:</label>
                         <input type="file" name="img_e" accept="image/*" class="text-[11px] text-slate-500 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-[11px] file:bg-white file:border-slate-200 file:text-slate-700">
                     </div>
@@ -346,7 +346,7 @@
 
 <!-- Modal Edit Butir Soal -->
 <div id="editSoalModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4 overflow-y-auto" role="dialog" aria-modal="true">
-    <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl space-y-5 my-auto relative animate-fadeIn" onclick="event.stopPropagation()">
+    <div class="bg-white rounded-xl sm:rounded-3xl p-4 sm:p-8 max-w-3xl w-full max-h-[90dvh] overflow-y-auto shadow-2xl space-y-5 my-auto relative animate-fadeIn" onclick="event.stopPropagation()">
         <div class="flex items-center justify-between pb-3 border-b border-slate-100">
             <div>
                 <h3 class="font-extrabold text-slate-900 text-lg">Edit Butir Soal</h3>
@@ -387,7 +387,7 @@
                         <span class="w-6 h-6 rounded-full bg-slate-200 text-slate-800 font-bold flex items-center justify-center font-mono text-xs">A</span>
                         <input type="text" name="pil_a" id="edit_pil_a" required class="flex-1 px-3 py-1.5 rounded-lg border border-slate-200 text-xs bg-white focus:ring-2 focus:ring-cyan-500 focus:outline-none">
                     </div>
-                    <div class="pl-8 flex items-center gap-2">
+                    <div class="flex min-w-0 flex-col gap-1 pl-8 sm:flex-row sm:items-center sm:gap-2">
                         <label class="text-[11px] text-slate-500 font-medium shrink-0">Ganti Gambar A:</label>
                         <input type="file" name="img_a" accept="image/*" class="text-[11px] text-slate-500 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-[11px] file:bg-white file:border-slate-200 file:text-slate-700">
                     </div>
@@ -399,7 +399,7 @@
                         <span class="w-6 h-6 rounded-full bg-slate-200 text-slate-800 font-bold flex items-center justify-center font-mono text-xs">B</span>
                         <input type="text" name="pil_b" id="edit_pil_b" required class="flex-1 px-3 py-1.5 rounded-lg border border-slate-200 text-xs bg-white focus:ring-2 focus:ring-cyan-500 focus:outline-none">
                     </div>
-                    <div class="pl-8 flex items-center gap-2">
+                    <div class="flex min-w-0 flex-col gap-1 pl-8 sm:flex-row sm:items-center sm:gap-2">
                         <label class="text-[11px] text-slate-500 font-medium shrink-0">Ganti Gambar B:</label>
                         <input type="file" name="img_b" accept="image/*" class="text-[11px] text-slate-500 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-[11px] file:bg-white file:border-slate-200 file:text-slate-700">
                     </div>
@@ -411,7 +411,7 @@
                         <span class="w-6 h-6 rounded-full bg-slate-200 text-slate-800 font-bold flex items-center justify-center font-mono text-xs">C</span>
                         <input type="text" name="pil_c" id="edit_pil_c" class="flex-1 px-3 py-1.5 rounded-lg border border-slate-200 text-xs bg-white focus:ring-2 focus:ring-cyan-500 focus:outline-none">
                     </div>
-                    <div class="pl-8 flex items-center gap-2">
+                    <div class="flex min-w-0 flex-col gap-1 pl-8 sm:flex-row sm:items-center sm:gap-2">
                         <label class="text-[11px] text-slate-500 font-medium shrink-0">Ganti Gambar C:</label>
                         <input type="file" name="img_c" accept="image/*" class="text-[11px] text-slate-500 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-[11px] file:bg-white file:border-slate-200 file:text-slate-700">
                     </div>
@@ -423,7 +423,7 @@
                         <span class="w-6 h-6 rounded-full bg-slate-200 text-slate-800 font-bold flex items-center justify-center font-mono text-xs">D</span>
                         <input type="text" name="pil_d" id="edit_pil_d" class="flex-1 px-3 py-1.5 rounded-lg border border-slate-200 text-xs bg-white focus:ring-2 focus:ring-cyan-500 focus:outline-none">
                     </div>
-                    <div class="pl-8 flex items-center gap-2">
+                    <div class="flex min-w-0 flex-col gap-1 pl-8 sm:flex-row sm:items-center sm:gap-2">
                         <label class="text-[11px] text-slate-500 font-medium shrink-0">Ganti Gambar D:</label>
                         <input type="file" name="img_d" accept="image/*" class="text-[11px] text-slate-500 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-[11px] file:bg-white file:border-slate-200 file:text-slate-700">
                     </div>
@@ -435,7 +435,7 @@
                         <span class="w-6 h-6 rounded-full bg-slate-200 text-slate-800 font-bold flex items-center justify-center font-mono text-xs">E</span>
                         <input type="text" name="pil_e" id="edit_pil_e" class="flex-1 px-3 py-1.5 rounded-lg border border-slate-200 text-xs bg-white focus:ring-2 focus:ring-cyan-500 focus:outline-none">
                     </div>
-                    <div class="pl-8 flex items-center gap-2">
+                    <div class="flex min-w-0 flex-col gap-1 pl-8 sm:flex-row sm:items-center sm:gap-2">
                         <label class="text-[11px] text-slate-500 font-medium shrink-0">Ganti Gambar E:</label>
                         <input type="file" name="img_e" accept="image/*" class="text-[11px] text-slate-500 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-[11px] file:bg-white file:border-slate-200 file:text-slate-700">
                     </div>
@@ -443,7 +443,7 @@
             </div>
 
             <!-- Kunci Jawaban & Urutan -->
-            <div class="grid grid-cols-2 gap-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                     <label class="block font-bold text-slate-700 uppercase mb-1">Kunci Jawaban Benar</label>
                     <select name="kunci_jawaban" id="edit_kunci" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-bold focus:ring-2 focus:ring-cyan-500 focus:outline-none">

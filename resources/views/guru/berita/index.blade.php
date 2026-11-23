@@ -3,20 +3,20 @@
 @section('page_title', 'Buku Harian Guru & Warta Pembelajaran')
 
 @section('content')
-<div class="space-y-6">
+<div class="space-y-4 sm:space-y-6">
 
     <!-- Header & Action -->
     <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-        <div>
-            <h2 class="text-xl font-bold text-slate-900">Buku Harian Guru & Jurnal Pembelajaran</h2>
-            <p class="text-xs text-slate-500 mt-1">Dokumentasikan aktivitas mengajar harian, refleksi pembelajaran, maupun warta kegiatan sekolah yang dapat ditampilkan di website utama.</p>
+        <div class="min-w-0">
+            <h2 class="break-words text-lg sm:text-xl font-bold text-slate-900">Buku Harian Guru & Jurnal Pembelajaran</h2>
+            <p class="text-sm text-slate-500 mt-1 leading-relaxed">Dokumentasikan aktivitas mengajar harian, refleksi pembelajaran, maupun warta kegiatan sekolah yang dapat ditampilkan di website utama.</p>
         </div>
-        <div class="flex flex-wrap items-center gap-2">
-            <a href="{{ route('landing') }}#berita-sekolah" target="_blank" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs transition">
+        <div class="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center">
+            <a href="{{ route('landing') }}#berita-sekolah" target="_blank" class="inline-flex min-h-11 items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs transition">
                 <i class="fa-solid fa-arrow-up-right-from-square text-xs text-cyan-600"></i>
                 <span>Lihat Web Sekolah</span>
             </a>
-            <button type="button" onclick="openModal('addJurnalModal')" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white font-extrabold text-xs transition shadow-sm">
+            <button type="button" onclick="openModal('addJurnalModal')" class="inline-flex min-h-11 items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white font-extrabold text-xs transition shadow-sm">
                 <i class="fa-solid fa-pen-nib text-xs"></i>
                 <span>Tulis Jurnal / Berita Baru</span>
             </button>
@@ -25,9 +25,9 @@
 
     <!-- Stat Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center justify-between">
-            <div>
-                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Total Catatan Saya</span>
+        <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-sm flex items-center justify-between gap-3">
+            <div class="min-w-0">
+                <span class="text-[11px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider">Total Catatan Saya</span>
                 <div class="text-2xl font-extrabold text-slate-900 mt-1">{{ number_format($totalJurnal) }}</div>
                 <div class="text-[11px] text-slate-400 mt-0.5">Buku harian & warta kelas</div>
             </div>
@@ -36,9 +36,9 @@
             </div>
         </div>
 
-        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center justify-between">
-            <div>
-                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Tayang di Website Utama</span>
+        <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-sm flex items-center justify-between gap-3">
+            <div class="min-w-0">
+                <span class="text-[11px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider">Tayang di Website Utama</span>
                 <div class="text-2xl font-extrabold text-emerald-600 mt-1">{{ number_format($totalWeb) }}</div>
                 <div class="text-[11px] text-emerald-700/80 mt-0.5">Dapat dibaca oleh umum & wali murid</div>
             </div>
@@ -47,9 +47,9 @@
             </div>
         </div>
 
-        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center justify-between">
-            <div>
-                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Catatan Internal (Pribadi)</span>
+        <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-sm flex items-center justify-between gap-3">
+            <div class="min-w-0">
+                <span class="text-[11px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider">Catatan Internal (Pribadi)</span>
                 <div class="text-2xl font-extrabold text-slate-700 mt-1">{{ number_format($totalPrivate) }}</div>
                 <div class="text-[11px] text-slate-400 mt-0.5">Hanya tersimpan di akun Anda</div>
             </div>
@@ -60,14 +60,14 @@
     </div>
 
     <!-- Filter Bar -->
-    <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm">
+    <div class="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-4 border border-slate-200 shadow-sm">
         <form method="GET" action="{{ route('guru.berita.index') }}" class="grid grid-cols-1 sm:grid-cols-5 gap-3">
             <div>
-                <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari judul catatan..." class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+                <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari judul catatan..." class="min-h-11 w-full px-3.5 py-2 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-cyan-500 focus:outline-none">
             </div>
 
             <div>
-                <select name="academic_year_id" onchange="this.form.submit()" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+                <select name="academic_year_id" onchange="this.form.submit()" class="min-h-11 w-full px-3.5 py-2 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-cyan-500 focus:outline-none">
                     <option value="">Semua Tahun Ajaran</option>
                     @foreach($academicYears as $ay)
                         <option value="{{ $ay->id }}" {{ request('academic_year_id') == $ay->id ? 'selected' : '' }}>TA: {{ $ay->full_label }}</option>
@@ -76,7 +76,7 @@
             </div>
 
             <div>
-                <select name="bulan" onchange="this.form.submit()" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+                <select name="bulan" onchange="this.form.submit()" class="min-h-11 w-full px-3.5 py-2 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-cyan-500 focus:outline-none">
                     <option value="">Semua Bulan</option>
                     @for($m = 1; $m <= 12; $m++)
                         @php
@@ -88,7 +88,7 @@
             </div>
 
             <div>
-                <select name="kategori" onchange="this.form.submit()" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+                <select name="kategori" onchange="this.form.submit()" class="min-h-11 w-full px-3.5 py-2 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-cyan-500 focus:outline-none">
                     <option value="">Semua Kategori</option>
                     <option value="buku_harian" {{ request('kategori') == 'buku_harian' ? 'selected' : '' }}>Buku Harian Mengajar</option>
                     <option value="berita" {{ request('kategori') == 'berita' ? 'selected' : '' }}>Berita / Kegiatan</option>
@@ -98,9 +98,9 @@
             </div>
 
             <div class="flex gap-2">
-                <button type="submit" class="px-4 py-2 rounded-xl bg-slate-900 text-white text-xs font-bold">Filter</button>
+                <button type="submit" class="min-h-11 px-4 py-2 rounded-xl bg-slate-900 text-white text-sm font-bold">Filter</button>
                 @if(request()->hasAny(['q', 'academic_year_id', 'bulan', 'kategori']))
-                    <a href="{{ route('guru.berita.index') }}" class="px-3 py-2 rounded-xl border border-slate-200 text-slate-500 text-xs font-bold">Reset</a>
+                    <a href="{{ route('guru.berita.index') }}" class="inline-flex min-h-11 items-center px-3 py-2 rounded-xl border border-slate-200 text-sm font-bold text-slate-500">Reset</a>
                 @endif
             </div>
         </form>
@@ -108,7 +108,66 @@
 
     <!-- Table -->
     <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-        <div class="overflow-x-auto">
+        <div class="divide-y divide-slate-100 lg:hidden">
+            @forelse($beritas as $idx => $b)
+                <article class="space-y-3 p-4">
+                    <div class="flex min-w-0 items-start gap-3">
+                        @if($b->gambar)
+                            <img src="{{ asset($b->gambar) }}" alt="{{ $b->judul }}" class="h-14 w-16 shrink-0 rounded-lg border border-slate-200 object-cover">
+                        @else
+                            <div class="flex h-14 w-16 shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-slate-100 text-slate-400">
+                                <i class="fa-solid fa-image"></i>
+                            </div>
+                        @endif
+                        <div class="min-w-0 flex-1">
+                            <div class="flex flex-wrap items-center gap-2 text-[10px]">
+                                @if($b->kategori === 'buku_harian')
+                                    <span class="rounded-full border border-amber-200 bg-amber-50 px-2 py-1 font-bold text-amber-800">Buku Harian</span>
+                                @elseif($b->kategori === 'prestasi')
+                                    <span class="rounded-full border border-emerald-200 bg-emerald-50 px-2 py-1 font-bold text-emerald-800">Prestasi</span>
+                                @else
+                                    <span class="rounded-full border border-cyan-200 bg-cyan-50 px-2 py-1 font-bold text-cyan-800">{{ ucfirst($b->kategori) }}</span>
+                                @endif
+                                <span class="text-slate-500">{{ $b->tanggal ? $b->tanggal->format('d/m/Y') : '-' }}</span>
+                            </div>
+                            <h3 class="mt-2 break-words text-sm font-bold text-slate-900">{{ $b->judul }}</h3>
+                            <p class="mt-1 break-words text-xs leading-relaxed text-slate-500 line-clamp-2">{{ Str::limit(strip_tags($b->konten), 110) }}</p>
+                            <p class="mt-1 break-words text-[11px] text-slate-400">{{ $b->academicYear?->full_label ?? 'Tanpa tahun ajaran' }}</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2 border-t border-slate-100 pt-3 sm:flex-row sm:items-center sm:justify-between">
+                        <form action="{{ route('guru.berita.toggle_web', $b) }}" method="POST" class="w-full sm:w-auto">
+                            @csrf
+                            <button type="submit" class="inline-flex min-h-11 w-full items-center justify-center gap-1.5 rounded-full px-3 py-1 text-[10px] font-bold {{ $b->tampil_di_web ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-slate-100 text-slate-500 border border-slate-200' }}" title="Ubah status publikasi">
+                                <i class="fa-solid {{ $b->tampil_di_web ? 'fa-globe' : 'fa-lock' }}"></i>
+                                <span>{{ $b->tampil_di_web ? 'Tayang di Web' : 'Internal' }}</span>
+                            </button>
+                        </form>
+                        <div class="flex items-center justify-end gap-2">
+                            @if($b->tampil_di_web)
+                                <a href="{{ route('berita.show', $b->slug) }}" target="_blank" class="flex h-11 w-11 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-cyan-600" title="Buka di Website">
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </a>
+                            @endif
+                            <button type="button" onclick="openEditJurnalModal({{ $b->id }}, '{{ addslashes($b->judul) }}', '{{ $b->kategori }}', '{{ $b->tanggal ? $b->tanggal->format('Y-m-d') : '' }}', '{{ $b->academic_year_id }}', {{ $b->tampil_di_web ? 1 : 0 }}, `{{ addslashes($b->konten) }}`)" class="flex h-11 w-11 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-cyan-600" title="Edit Catatan">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                            <form action="{{ route('guru.berita.destroy', $b) }}" method="POST" onsubmit="return confirm('Hapus catatan ini?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="flex h-11 w-11 items-center justify-center rounded-lg text-slate-500 hover:bg-rose-50 hover:text-rose-600" title="Hapus Catatan">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </article>
+            @empty
+                <div class="px-4 py-10 text-center text-sm text-slate-400">Belum ada buku harian atau catatan yang Anda tulis. Klik tombol di atas untuk membuat catatan pertama.</div>
+            @endforelse
+        </div>
+
+        <div class="hidden overflow-x-auto lg:block">
             <table class="w-full text-left text-xs">
                 <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold uppercase tracking-wider">
                     <tr>
@@ -211,7 +270,7 @@
 
 <!-- Modal Tambah Jurnal Guru -->
 <div id="addJurnalModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4 overflow-y-auto" role="dialog" aria-modal="true">
-    <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl space-y-5 my-auto relative animate-fadeIn" onclick="event.stopPropagation()">
+    <div class="bg-white rounded-xl sm:rounded-3xl p-4 sm:p-8 max-w-2xl w-full shadow-2xl space-y-5 my-auto relative animate-fadeIn" onclick="event.stopPropagation()">
         <div class="flex items-center justify-between pb-3 border-b border-slate-100">
             <div>
                 <h3 class="font-extrabold text-slate-900 text-lg">Tulis Buku Harian / Berita Pembelajaran</h3>
@@ -286,7 +345,7 @@
 
 <!-- Modal Edit Jurnal Guru -->
 <div id="editJurnalModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4 overflow-y-auto" role="dialog" aria-modal="true">
-    <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl space-y-5 my-auto relative animate-fadeIn" onclick="event.stopPropagation()">
+    <div class="bg-white rounded-xl sm:rounded-3xl p-4 sm:p-8 max-w-2xl w-full shadow-2xl space-y-5 my-auto relative animate-fadeIn" onclick="event.stopPropagation()">
         <div class="flex items-center justify-between pb-3 border-b border-slate-100">
             <div>
                 <h3 class="font-extrabold text-slate-900 text-lg">Edit Catatan / Buku Harian</h3>
