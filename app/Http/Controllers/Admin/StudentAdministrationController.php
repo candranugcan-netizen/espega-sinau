@@ -119,7 +119,7 @@ class StudentAdministrationController extends Controller
         $documentType = StudentDocumentType::where('is_active', true)->findOrFail($validated['document_type_id']);
 
         try {
-            $optimized = $optimizer->store($request->file('file'), $student);
+            $optimized = $optimizer->store($validated['file'], $student, $documentType);
         } catch (RuntimeException $exception) {
             return back()->withErrors(['file' => $exception->getMessage()])->withInput();
         }
@@ -127,7 +127,6 @@ class StudentAdministrationController extends Controller
         StudentDocument::create([
             'user_id' => $student->id,
             'document_type_id' => $documentType->id,
-            'original_name' => basename($request->file('file')->getClientOriginalName()),
             ...$optimized,
         ]);
 

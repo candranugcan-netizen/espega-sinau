@@ -3,19 +3,19 @@
 @section('title', 'Login Portal - Espega Sinau (SMPN 3 Ngawen)')
 
 @section('body')
-<div class="min-h-screen flex items-center justify-center p-4 bg-slate-100">
-    <div class="w-full max-w-4xl bg-white rounded-3xl shadow-md border border-slate-200 overflow-hidden flex flex-col md:flex-row">
+<div class="min-h-[100svh] flex items-center justify-center p-3 sm:p-4 bg-slate-100">
+    <div class="w-full max-w-4xl bg-white rounded-2xl sm:rounded-3xl shadow-md border border-slate-200 overflow-hidden flex flex-col md:flex-row">
         
         <!-- Sisi Kiri: Branding & Informasi Sekolah -->
-        <div class="md:w-5/12 bg-brand-900 p-8 sm:p-10 text-white flex flex-col justify-between border-b md:border-b-0 md:border-r border-brand-800">
+        <div class="md:w-5/12 bg-brand-900 p-5 sm:p-8 md:p-10 text-white flex flex-col justify-between border-b md:border-b-0 md:border-r border-brand-800">
             <div>
-                <a href="{{ route('landing') }}" class="inline-flex items-center gap-2 text-xs font-semibold text-slate-300 hover:text-white transition-colors mb-8">
+            <a href="{{ route('landing') }}" class="inline-flex items-center gap-2 text-xs font-semibold text-slate-300 hover:text-white transition-colors mb-4 sm:mb-8">
                     <i class="fa-solid fa-arrow-left"></i>
                     <span>Kembali ke Website Utama</span>
                 </a>
 
-                <div class="mb-6">
-                    <img src="/assets/img/logo-espega.png" alt="Logo SMPN 3 Ngawen" class="w-16 h-16 object-contain">
+                <div class="mb-4 sm:mb-6">
+                    <img src="/assets/img/logo-espega.png" alt="Logo SMPN 3 Ngawen" class="w-12 h-12 sm:w-16 sm:h-16 object-contain rounded-xl">
                 </div>
 
                 <span class="inline-block px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-brand-800 text-amber-300 border border-brand-700 mb-2">
@@ -27,7 +27,7 @@
                 </p>
             </div>
 
-            <div class="pt-8 border-t border-brand-800 space-y-2.5">
+            <div class="hidden sm:block pt-8 border-t border-brand-800 space-y-2.5">
                 <div class="flex items-center gap-2.5 text-xs text-slate-300">
                     <i class="fa-solid fa-shield-halved text-emerald-400"></i>
                     <span>CBT Terproteksi & Mandiri</span>
@@ -43,8 +43,8 @@
         </div>
 
         <!-- Sisi Kanan: Form Login -->
-        <div class="md:w-7/12 p-8 sm:p-12 flex flex-col justify-center">
-            <div class="mb-8">
+        <div class="md:w-7/12 p-5 sm:p-8 md:p-12 flex flex-col justify-center">
+            <div class="mb-6 sm:mb-8">
                 <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">Selamat Datang</h2>
                 <p class="text-sm text-slate-500 mt-1">Gunakan Username / NIS & Kode Token Akses Anda</p>
             </div>
@@ -81,7 +81,7 @@
 
                 <!-- Token / Password Input -->
                 <div>
-                    <div class="flex items-center justify-between mb-2">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
                         <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Kode Akses / Password</label>
                         <span class="text-[11px] text-slate-400">Token 6 digit (Siswa)</span>
                     </div>
@@ -112,7 +112,7 @@
             </form>
 
             <!-- Petunjuk Login Ringkas -->
-            <div class="mt-8 pt-6 border-t border-slate-100 text-xs text-slate-500 space-y-1">
+            <div class="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-slate-100 text-xs text-slate-500 space-y-1">
                 <div class="font-semibold text-slate-700"><i class="fa-solid fa-info-circle text-brand-600 mr-1"></i> Bantuan Akses Masuk:</div>
                 <div>• <strong>Siswa:</strong> Gunakan NIS sebagai Username dan Kode Token Kartu Ujian.</div>
                 <div>• <strong>Guru / Admin:</strong> Gunakan username terdaftar dan password/token Anda.</div>

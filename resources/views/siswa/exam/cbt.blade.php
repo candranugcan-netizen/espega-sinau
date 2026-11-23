@@ -8,7 +8,7 @@
     <!-- CBT Topbar -->
     <header class="h-16 bg-white border-b border-slate-200 px-4 sm:px-6 flex items-center justify-between shrink-0 z-20 shadow-sm">
         <div class="flex items-center gap-3">
-            <img src="/assets/img/logo-espega.png" alt="Logo" class="w-9 h-9 object-contain shrink-0">
+            <img src="/assets/img/logo-espega.png" alt="Logo" class="w-9 h-9 object-contain rounded-xl shrink-0">
             <div>
                 <span class="block text-sm font-extrabold text-slate-900 leading-tight">{{ $exam->nama_ujian }}</span>
                 <span class="block text-[11px] text-slate-500 font-semibold">{{ $exam->subject->nama_mapel ?? '-' }} • Kelas {{ $exam->target_kelas }}</span>

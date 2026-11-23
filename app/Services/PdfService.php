@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\BankSoal;
 use App\Models\Question;
 use App\Models\User;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 class PdfService
@@ -14,9 +15,9 @@ class PdfService
      */
     protected static function loadFpdf()
     {
-        if (!class_exists('FPDF')) {
+        if (! class_exists('FPDF')) {
             $path = app_path('Services/Libraries/fpdf/fpdf.php');
-            if (!file_exists($path)) {
+            if (! file_exists($path)) {
                 $path = base_path('espega_old/vendor/fpdf/fpdf.php');
             }
             if (file_exists($path)) {
@@ -33,18 +34,18 @@ class PdfService
         self::loadFpdf();
 
         $query = User::where('role_id', 3);
-        if (!empty($kelas)) {
+        if (! empty($kelas)) {
             $query->where('kelas', $kelas);
         }
-        if (!empty($search)) {
+        if (! empty($search)) {
             $query->where(function ($q) use ($search) {
                 $q->where('username', 'LIKE', "%$search%")
-                  ->orWhere('nama_lengkap', 'LIKE', "%$search%");
+                    ->orWhere('nama_lengkap', 'LIKE', "%$search%");
             });
         }
         $students = $query->orderBy('kelas')->orderBy('nama_lengkap')->get();
 
-        if (!class_exists('FPDF')) {
+        if (! class_exists('FPDF')) {
             abort(500, 'Library FPDF tidak ditemukan.');
         }
 
@@ -157,7 +158,7 @@ class PdfService
             $count++;
         }
 
-        $filename = 'Kartu_Peserta_CBT_' . ($kelas ? "Kelas_{$kelas}_" : 'Semua_') . date('Ymd') . '.pdf';
+        $filename = 'Kartu_Peserta_CBT_'.($kelas ? "Kelas_{$kelas}_" : 'Semua_').date('Ymd').'.pdf';
         $pdf->Output('D', $filename);
         exit;
     }
@@ -175,7 +176,7 @@ class PdfService
             ->orderBy('id')
             ->get();
 
-        if (!class_exists('FPDF')) {
+        if (! class_exists('FPDF')) {
             abort(500, 'Library FPDF tidak ditemukan.');
         }
 
@@ -229,7 +230,7 @@ class PdfService
 
         $pdf->Cell(25, 5, 'Jumlah Soal', 0, 0);
         $pdf->Cell(3, 5, ':', 0, 0);
-        $pdf->Cell(40, 5, count($questions) . ' Butir Pilihan Ganda', 0, 1);
+        $pdf->Cell(40, 5, count($questions).' Butir Pilihan Ganda', 0, 1);
 
         $pdf->SetLineWidth(0.2);
         $pdf->Line(15, $pdf->GetY() + 2, 195, $pdf->GetY() + 2);
@@ -241,15 +242,15 @@ class PdfService
 
         foreach ($questions as $q) {
             $pdf->SetFont('Arial', 'B', 9);
-            $pdf->Cell(8, 5, $num . '.', 0, 0);
+            $pdf->Cell(8, 5, $num.'.', 0, 0);
 
             $pdf->SetFont('Arial', '', 9);
             $cleanPertanyaan = strip_tags($q->pertanyaan);
             $pdf->MultiCell(172, 5, $cleanPertanyaan);
 
             // Jika ada gambar soal
-            if (!empty($q->img_pertanyaan)) {
-                $imgPath = public_path('assets/img/soal/' . $q->img_pertanyaan);
+            if (! empty($q->img_pertanyaan)) {
+                $imgPath = public_path('assets/img/soal/'.$q->img_pertanyaan);
                 if (file_exists($imgPath)) {
                     $pdf->Ln(1);
                     $pdf->Image($imgPath, $pdf->GetX() + 8, $pdf->GetY(), 60);
@@ -262,19 +263,19 @@ class PdfService
             // Pilihan Jawaban A, B, C, D, E
             foreach (['A', 'B', 'C', 'D', 'E'] as $opt) {
                 $key = strtolower($opt);
-                $optText = $q->{'pil_' . $key};
-                $optImg = $q->{'img_' . $key};
+                $optText = $q->{'pil_'.$key};
+                $optImg = $q->{'img_'.$key};
 
-                if (!empty($optText) || !empty($optImg)) {
+                if (! empty($optText) || ! empty($optImg)) {
                     $pdf->SetFont('Arial', 'B', 8.5);
                     $pdf->Cell(8, 4.5, '', 0, 0);
-                    $pdf->Cell(6, 4.5, $opt . '.', 0, 0);
+                    $pdf->Cell(6, 4.5, $opt.'.', 0, 0);
 
                     $pdf->SetFont('Arial', '', 8.5);
-                    $pdf->MultiCell(166, 4.5, strip_tags((string)$optText));
+                    $pdf->MultiCell(166, 4.5, strip_tags((string) $optText));
 
-                    if (!empty($optImg)) {
-                        $imgPath = public_path('assets/img/soal/' . $optImg);
+                    if (! empty($optImg)) {
+                        $imgPath = public_path('assets/img/soal/'.$optImg);
                         if (file_exists($imgPath)) {
                             $pdf->Image($imgPath, $pdf->GetX() + 14, $pdf->GetY(), 40);
                             $pdf->Ln(28);
@@ -337,7 +338,7 @@ class PdfService
 
             $pdf->Ln(6);
             $pdf->SetFont('Arial', 'B', 8.5);
-            $rekap = sprintf("Rekapitulasi: A=%d  |  B=%d  |  C=%d  |  D=%d  |  E=%d  (Total %d Soal)",
+            $rekap = sprintf('Rekapitulasi: A=%d  |  B=%d  |  C=%d  |  D=%d  |  E=%d  (Total %d Soal)',
                 $distribusi['A'], $distribusi['B'], $distribusi['C'], $distribusi['D'], $distribusi['E'], $totalQ
             );
             $pdf->Cell(0, 6, $rekap, 1, 1, 'C', true);
@@ -347,5 +348,183 @@ class PdfService
         $filename = "Naskah_Soal_{$safeName}.pdf";
         $pdf->Output('I', $filename);
         exit;
+    }
+
+    public static function exportAttendancePdf(string $className, string $date, Collection $rows, array $summary)
+    {
+        self::loadFpdf();
+
+        if (! class_exists('FPDF')) {
+            abort(500, 'Library FPDF tidak ditemukan.');
+        }
+
+        $pdf = new \FPDF('P', 'mm', 'A4');
+        $pdf->SetMargins(10, 12, 10);
+        $pdf->SetAutoPageBreak(true, 18);
+        $pdf->AddPage();
+        $pdf->SetTextColor(15, 23, 42);
+        $pdf->SetFont('Arial', 'B', 11);
+        $pdf->Cell(0, 6, 'PEMERINTAH KABUPATEN GUNUNGKIDUL', 0, 1, 'C');
+        $pdf->SetFont('Arial', 'B', 14);
+        $pdf->Cell(0, 7, 'SMP NEGERI 3 NGAWEN', 0, 1, 'C');
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Cell(0, 5, 'DAFTAR HADIR SISWA', 0, 1, 'C');
+        $pdf->Ln(3);
+
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Cell(28, 6, 'Kelas', 0, 0);
+        $pdf->Cell(3, 6, ':', 0, 0);
+        $pdf->SetFont('Arial', 'B', 9);
+        $pdf->Cell(65, 6, self::pdfText($className), 0, 0);
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Cell(25, 6, 'Tanggal', 0, 0);
+        $pdf->Cell(3, 6, ':', 0, 0);
+        $pdf->SetFont('Arial', 'B', 9);
+        $pdf->Cell(0, 6, $date, 0, 1);
+        $pdf->Ln(2);
+
+        $pdf->SetFont('Arial', 'B', 8);
+        $pdf->SetFillColor(226, 232, 240);
+        $pdf->Cell(9, 7, 'No', 1, 0, 'C', true);
+        $pdf->Cell(27, 7, 'NIS', 1, 0, 'C', true);
+        $pdf->Cell(62, 7, 'Nama siswa', 1, 0, 'C', true);
+        $pdf->Cell(29, 7, 'Status', 1, 0, 'C', true);
+        $pdf->Cell(53, 7, 'Catatan', 1, 1, 'C', true);
+
+        $pdf->SetFont('Arial', '', 8);
+        foreach ($rows as $row) {
+            $pdf->Cell(9, 7, (string) $row['no'], 1, 0, 'C');
+            $pdf->Cell(27, 7, self::pdfText(Str::limit((string) $row['nis'], 15, '')), 1, 0);
+            $pdf->Cell(62, 7, self::pdfText(Str::limit((string) $row['nama'], 34, '')), 1, 0);
+            $pdf->Cell(29, 7, self::pdfText((string) $row['status']), 1, 0, 'C');
+            $pdf->Cell(53, 7, self::pdfText(Str::limit((string) $row['catatan'], 30, '')), 1, 1);
+        }
+
+        $pdf->Ln(3);
+        $pdf->SetFont('Arial', 'B', 8);
+        $pdf->Cell(0, 6, sprintf(
+            'Hadir: %d    Sakit: %d    Izin: %d    Alpa: %d    Belum diisi: %d',
+            $summary['hadir'],
+            $summary['sakit'],
+            $summary['izin'],
+            $summary['alpa'],
+            $summary['belum_diisi'],
+        ), 0, 1);
+
+        $pdf->Ln(12);
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Cell(95, 6, '', 0, 0);
+        $pdf->Cell(0, 6, 'Ngawen, '.$date, 0, 1, 'C');
+        $pdf->Cell(95, 6, '', 0, 0);
+        $pdf->Cell(0, 6, 'Wali Kelas', 0, 1, 'C');
+        $pdf->Ln(18);
+        $pdf->Cell(95, 6, '', 0, 0);
+        $pdf->SetFont('Arial', 'B', 9);
+        $pdf->Cell(0, 6, '( ........................................ )', 0, 1, 'C');
+
+        $filename = 'Daftar_Hadir_'.Str::slug($className, '_').'_'.str_replace('-', '', $date).'.pdf';
+
+        return response($pdf->Output('S'), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="'.$filename.'"',
+        ]);
+    }
+
+    public static function exportMonthlyAttendancePdf(string $className, string $period, Collection $rows, array $summary)
+    {
+        self::loadFpdf();
+
+        if (! class_exists('FPDF')) {
+            abort(500, 'Library FPDF tidak ditemukan.');
+        }
+
+        $pdf = new \FPDF('L', 'mm', 'A4');
+        $pdf->SetMargins(10, 12, 10);
+        $pdf->SetAutoPageBreak(true, 18);
+        $pdf->AddPage();
+        $pdf->SetTextColor(15, 23, 42);
+        $pdf->SetFont('Arial', 'B', 11);
+        $pdf->Cell(0, 6, 'PEMERINTAH KABUPATEN GUNUNGKIDUL', 0, 1, 'C');
+        $pdf->SetFont('Arial', 'B', 14);
+        $pdf->Cell(0, 7, 'SMP NEGERI 3 NGAWEN', 0, 1, 'C');
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Cell(0, 5, 'REKAP ABSENSI BULANAN', 0, 1, 'C');
+        $pdf->Ln(3);
+
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Cell(28, 6, 'Kelas', 0, 0);
+        $pdf->Cell(3, 6, ':', 0, 0);
+        $pdf->SetFont('Arial', 'B', 9);
+        $pdf->Cell(75, 6, self::pdfText($className), 0, 0);
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Cell(28, 6, 'Periode', 0, 0);
+        $pdf->Cell(3, 6, ':', 0, 0);
+        $pdf->SetFont('Arial', 'B', 9);
+        $pdf->Cell(0, 6, self::pdfText($period), 0, 1);
+        $pdf->Ln(2);
+
+        $pdf->SetFont('Arial', 'B', 8);
+        $pdf->SetFillColor(226, 232, 240);
+        foreach ([
+            ['No', 10],
+            ['NIS', 28],
+            ['Nama siswa', 90],
+            ['Hadir', 20],
+            ['Sakit', 20],
+            ['Izin', 20],
+            ['Alpa', 20],
+            ['Hari tercatat', 30],
+            ['Kehadiran', 28],
+        ] as [$label, $width]) {
+            $pdf->Cell($width, 7, self::pdfText($label), 1, 0, 'C', true);
+        }
+        $pdf->Ln();
+
+        $pdf->SetFont('Arial', '', 8);
+        foreach ($rows as $row) {
+            $pdf->Cell(10, 7, (string) $row['no'], 1, 0, 'C');
+            $pdf->Cell(28, 7, self::pdfText(Str::limit((string) $row['nis'], 16, '')), 1, 0);
+            $pdf->Cell(90, 7, self::pdfText(Str::limit((string) $row['nama'], 48, '')), 1, 0);
+            $pdf->Cell(20, 7, (string) $row['hadir'], 1, 0, 'C');
+            $pdf->Cell(20, 7, (string) $row['sakit'], 1, 0, 'C');
+            $pdf->Cell(20, 7, (string) $row['izin'], 1, 0, 'C');
+            $pdf->Cell(20, 7, (string) $row['alpa'], 1, 0, 'C');
+            $pdf->Cell(30, 7, (string) $row['hari_tercatat'], 1, 0, 'C');
+            $percentage = $row['persentase'] === null ? '-' : number_format($row['persentase'], 1).'%';
+            $pdf->Cell(28, 7, $percentage, 1, 1, 'C');
+        }
+
+        $pdf->Ln(3);
+        $pdf->SetFont('Arial', 'B', 8);
+        $pdf->Cell(0, 6, sprintf(
+            'Hari absensi: %d    Hadir: %d    Sakit: %d    Izin: %d    Alpa: %d    Tingkat hadir: %.1f%%',
+            $summary['hari_absensi'],
+            $summary['hadir'],
+            $summary['sakit'],
+            $summary['izin'],
+            $summary['alpa'],
+            $summary['persentase_hadir'],
+        ), 0, 1);
+
+        $pdf->Ln(12);
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Cell(185, 6, '', 0, 0);
+        $pdf->Cell(0, 6, 'Wali Kelas', 0, 1, 'C');
+        $pdf->Ln(18);
+        $pdf->Cell(185, 6, '', 0, 0);
+        $pdf->SetFont('Arial', 'B', 9);
+        $pdf->Cell(0, 6, '( ........................................ )', 0, 1, 'C');
+
+        $filename = 'Rekap_Absensi_Bulanan_'.Str::slug($className, '_').'_'.str_replace('-', '', $period).'.pdf';
+
+        return response($pdf->Output('S'), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="'.$filename.'"',
+        ]);
+    }
+
+    private static function pdfText(string $text): string
+    {
+        return iconv('UTF-8', 'windows-1252//TRANSLIT', $text) ?: $text;
     }
 }

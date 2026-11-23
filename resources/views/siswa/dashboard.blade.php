@@ -9,7 +9,7 @@
     <header class="bg-white border-b border-slate-200 sticky top-0 z-40">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <img src="/assets/img/logo-espega.png" alt="Logo SMPN 3 Ngawen" class="w-11 h-11 object-contain shrink-0">
+                <img src="/assets/img/logo-espega.png" alt="Logo SMPN 3 Ngawen" class="w-11 h-11 object-contain rounded-xl shrink-0">
                 <div>
                     <span class="block text-base font-extrabold text-slate-900 tracking-tight">ESPEGA SINAU</span>
                     <span class="block text-[11px] font-semibold text-brand-600">SMP Negeri 3 Ngawen</span>

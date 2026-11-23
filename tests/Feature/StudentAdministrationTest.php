@@ -119,6 +119,46 @@ class StudentAdministrationTest extends TestCase
         $this->assertDatabaseCount('student_documents', 0);
     }
 
+    public function test_admin_uploads_student_documents_with_unique_meaningful_filenames(): void
+    {
+        Storage::fake('local');
+        $this->seedRoles();
+        $admin = $this->createUser('admin-unique-document', 1);
+        $student = $this->createUser('siswa-unique-document', 3);
+        $student->update(['nama_lengkap' => 'Siswa Contoh']);
+        $documentType = StudentDocumentType::create([
+            'name' => 'Kartu Keluarga',
+            'slug' => 'kk-unique-test',
+            'is_active' => true,
+        ]);
+        $this->travelTo('2026-11-23 09:30:00');
+
+        foreach (range(1, 2) as $uploadNumber) {
+            $this->actingAs($admin)
+                ->post(route('admin.student_administration.documents.store', $student), [
+                    'document_type_id' => $documentType->id,
+                    'file' => UploadedFile::fake()->create("kartu-keluarga-{$uploadNumber}.pdf", 12, 'application/pdf'),
+                ])
+                ->assertRedirect();
+        }
+
+        $documents = $student->studentDocuments()->orderBy('id')->get();
+
+        $this->assertCount(2, $documents);
+        $this->assertNotSame($documents[0]->original_name, $documents[1]->original_name);
+
+        foreach ($documents as $document) {
+            $this->assertMatchesRegularExpression(
+                '/^siswa-contoh_kartu-keluarga_2026-11-23_[0-9a-f-]{36}\.pdf$/',
+                $document->original_name
+            );
+            $this->assertSame(basename($document->path), $document->original_name);
+            $this->assertTrue(Storage::disk('local')->exists($document->path));
+        }
+
+        $this->assertDatabaseCount('student_documents', 2);
+    }
+
     private function seedRoles(): void
     {
         DB::table('roles')->insert([

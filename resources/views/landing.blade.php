@@ -5,7 +5,7 @@
 @section('body')
 <!-- Top Utility Bar (Sleek, Clean, Informative) -->
 <div class="bg-slate-900 text-slate-300 text-xs py-2 border-b border-slate-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 flex items-center justify-between gap-3 sm:gap-4">
         <!-- Left: Portal Badge & Title -->
         <div class="flex items-center gap-2.5 truncate">
             <span class="inline-flex items-center gap-1.5 bg-brand-600/20 text-brand-300 text-[10px] font-extrabold uppercase px-2 py-0.5 rounded border border-brand-500/30 shrink-0">
@@ -37,18 +37,18 @@
 
 <!-- Main Navigation Header (Clean, Sticky with Glassmorphism) -->
 <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-sm transition-all duration-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-18 sm:h-20">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div class="flex min-h-16 items-center justify-between gap-2 py-2 sm:h-20 sm:py-0">
             <!-- Brand Logo & School Title -->
-            <a href="{{ route('landing') }}" class="flex items-center gap-3 sm:gap-3.5 group shrink-0">
+            <a href="{{ route('landing') }}" class="group flex min-w-0 flex-1 items-center gap-2.5 sm:flex-none sm:gap-3.5">
                 <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-white border border-slate-200 shadow-sm p-1 flex items-center justify-center group-hover:border-brand-300 transition-colors shrink-0">
                     <img src="/assets/img/logo-espega.png" alt="Logo SMPN 3 Ngawen" class="w-full h-full object-contain">
                 </div>
-                <div>
-                    <span class="block text-base sm:text-lg font-black tracking-tight text-slate-900 group-hover:text-brand-600 transition-colors leading-tight">
+                <div class="min-w-0">
+                    <span class="block max-w-[135px] break-words text-xs font-black tracking-tight text-slate-900 group-hover:text-brand-600 transition-colors leading-tight sm:max-w-none sm:text-lg">
                         SMP NEGERI 3 NGAWEN
                     </span>
-                    <span class="text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5 mt-0.5">
+                    <span class="hidden text-[10px] sm:flex sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider items-center gap-1.5 mt-0.5">
                         <span class="text-brand-600">Belajar</span>
                         <span class="w-1 h-1 rounded-full bg-amber-500"></span>
                         <span class="text-slate-700">Berproses</span>
@@ -84,23 +84,23 @@
             <div class="flex items-center gap-2 sm:gap-2.5 shrink-0">
                 @auth
                     @if(auth()->user()->isAdmin())
-                        <a href="{{ route('admin.dashboard') }}" class="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-xs shadow-sm hover:shadow transition-all shrink-0 whitespace-nowrap">
+                        <a href="{{ route('admin.dashboard') }}" class="hidden sm:inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-xs shadow-sm hover:shadow transition-all shrink-0 whitespace-nowrap">
                             <i class="fa-solid fa-gauge-high text-xs"></i>
                             <span>Panel Admin</span>
                         </a>
                     @elseif(auth()->user()->isGuru())
-                        <a href="{{ route('guru.dashboard') }}" class="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-xs shadow-sm hover:shadow transition-all shrink-0 whitespace-nowrap">
+                        <a href="{{ route('guru.dashboard') }}" class="hidden sm:inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-xs shadow-sm hover:shadow transition-all shrink-0 whitespace-nowrap">
                             <i class="fa-solid fa-chalkboard-user text-xs"></i>
                             <span>Panel Guru</span>
                         </a>
                     @else
-                        <a href="{{ route('siswa.dashboard') }}" class="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-xs shadow-sm hover:shadow transition-all shrink-0 whitespace-nowrap">
+                        <a href="{{ route('siswa.dashboard') }}" class="hidden sm:inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-xs shadow-sm hover:shadow transition-all shrink-0 whitespace-nowrap">
                             <i class="fa-solid fa-user-graduate text-xs"></i>
                             <span>Ruang Ujian CBT</span>
                         </a>
                     @endif
                 @else
-                    <a href="{{ route('login') }}" class="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 lg:px-5 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-xs shadow-sm hover:shadow transition-all shrink-0 whitespace-nowrap">
+                    <a href="{{ route('login') }}" aria-label="Masuk CBT" class="hidden sm:inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 lg:px-5 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-xs shadow-sm hover:shadow transition-all shrink-0 whitespace-nowrap">
                         <i class="fa-solid fa-right-to-bracket text-xs"></i>
                         <span class="whitespace-nowrap">Masuk CBT</span>
                     </a>
@@ -187,15 +187,15 @@
 </script>
 
 <!-- Hero Section -->
-<section id="beranda" class="bg-slate-50 border-b border-slate-200 pt-12 pb-16 lg:py-20">
+<section id="beranda" class="bg-slate-50 border-b border-slate-200 pt-8 pb-10 sm:pt-12 sm:pb-16 lg:py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid lg:grid-cols-12 gap-10 items-center">
+        <div class="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
             
             <!-- Left Hero Content -->
             <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-white border border-slate-200 text-brand-700 text-xs font-bold uppercase tracking-wider shadow-sm">
+                <div class="inline-flex max-w-full items-center gap-2 px-3.5 py-1.5 rounded-lg bg-white border border-slate-200 text-brand-700 text-xs font-bold uppercase tracking-wider leading-relaxed shadow-sm">
                     <span class="w-2 h-2 rounded-full bg-brand-600"></span>
-                    Portal Edukasi Digital & CBT SMPN 3 NGAWEN
+                    <span class="min-w-0 break-words">Portal Edukasi Digital & CBT SMPN 3 NGAWEN</span>
                 </div>
 
                 <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.2]">
@@ -236,17 +236,17 @@
 
             <!-- Right Hero Card -->
             <div class="lg:col-span-5">
-                <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-6">
-                    <div class="flex items-center justify-between pb-4 border-b border-slate-200">
-                        <div class="flex items-center gap-3">
+                <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-8 shadow-sm border border-slate-200 space-y-5 sm:space-y-6">
+                    <div class="flex flex-col items-start gap-3 border-b border-slate-200 pb-4 sm:flex-row sm:items-center sm:justify-between">
+                        <div class="flex min-w-0 items-center gap-3">
                             <img src="/assets/img/logo-espega.png" alt="Logo Sekolah" class="w-12 h-12 object-contain shrink-0">
-                            <div>
-                                <h3 class="font-extrabold text-slate-900 text-sm">SMP NEGERI 3 NGAWEN</h3>
-                                <p class="text-xs text-slate-500 font-mono">NPSN: 20402027 • Kab. Gunungkidul</p>
+                            <div class="min-w-0">
+                                <h3 class="break-words font-extrabold text-slate-900 text-sm">SMP NEGERI 3 NGAWEN</h3>
+                                <p class="break-words text-xs text-slate-500 font-mono">NPSN: 20402027 • Kab. Gunungkidul</p>
                             </div>
                         </div>
-                        <span class="px-2.5 py-1 rounded text-xs font-bold bg-blue-50 text-brand-700 border border-blue-200">
-                            Gunungkidul, Jogja
+                        <span class="max-w-full break-words px-2.5 py-1 rounded text-xs font-bold bg-blue-50 text-brand-700 border border-blue-200">
+                            Gunungkidul, D.I. Yogyakarta
                         </span>
                     </div>
 
@@ -297,23 +297,23 @@
 </section>
 
 <!-- Stats & Data Rombel Section -->
-<section id="akademik" class="py-8 bg-white border-b border-slate-200">
+<section id="akademik" class="py-6 sm:py-8 bg-white border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center divide-y md:divide-y-0 md:divide-x divide-slate-200">
-            <div class="p-3">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 text-center">
+            <div class="rounded-lg bg-slate-50 p-3 sm:p-4">
                 <div class="text-2xl sm:text-3xl font-extrabold text-brand-600 font-mono">{{ $totalSiswa > 0 ? $totalSiswa : '320+' }}</div>
                 <div class="text-xs font-bold text-slate-500 mt-1 uppercase tracking-wider">Peserta Didik</div>
             </div>
-            <div class="p-3">
+            <div class="rounded-lg bg-slate-50 p-3 sm:p-4">
                 <div class="text-2xl sm:text-3xl font-extrabold text-slate-900 font-mono">{{ $totalRombel > 0 ? $totalRombel : '6' }}</div>
                 <div class="text-xs font-bold text-slate-500 mt-1 uppercase tracking-wider">Rombel Belajar</div>
             </div>
-            <div class="p-3">
+            <div class="rounded-lg bg-slate-50 p-3 sm:p-4">
                 <div class="text-2xl sm:text-3xl font-extrabold text-slate-900 font-mono">{{ $totalGuru > 0 ? $totalGuru : '25+' }}</div>
                 <div class="text-xs font-bold text-slate-500 mt-1 uppercase tracking-wider">Tenaga Pendidik</div>
             </div>
         
-            <div class="p-3 col-span-2 md:col-span-1">
+            <div class="rounded-lg bg-slate-50 p-3 sm:p-4">
                 <div class="text-2xl sm:text-3xl font-extrabold text-emerald-600 font-mono">B</div>
                 <div class="text-xs font-bold text-slate-500 mt-1 uppercase tracking-wider">Akreditasi BAN-S/M</div>
             </div>
@@ -322,8 +322,8 @@
 </section>
 
 <!-- Section Visi & 3 Pilar Karakter -->
-<section id="visi-misi" class="py-16 bg-white border-b border-slate-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+<section id="visi-misi" class="py-10 sm:py-16 bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
         <div class="text-center max-w-3xl mx-auto space-y-2">
             <span class="inline-block px-3 py-1 rounded-md bg-blue-50 text-brand-700 text-xs font-bold uppercase tracking-wider border border-blue-200">
                 Landasan Filosofis Sekolah
@@ -333,7 +333,7 @@
         </div>
 
         <!-- Banner Visi Sekolah -->
-        <div class="bg-brand-900 rounded-2xl p-8 sm:p-10 text-white border border-brand-800 shadow-sm text-center space-y-4">
+        <div class="bg-brand-900 rounded-xl sm:rounded-2xl p-5 sm:p-10 text-white border border-brand-800 shadow-sm text-center space-y-4">
             <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-800 text-amber-300 text-xs font-bold uppercase tracking-widest border border-brand-700">
                 <i class="fa-solid fa-compass"></i> Visi SMP Negeri 3 Ngawen
             </div>
@@ -346,8 +346,8 @@
         </div>
 
         <!-- Tiga Pilar Utama dari Visi -->
-        <div class="grid sm:grid-cols-3 gap-6">
-            <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 space-y-3">
+        <div class="grid sm:grid-cols-3 gap-4 sm:gap-6">
+            <div class="bg-slate-50 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 space-y-3">
                 <div class="w-10 h-10 rounded-xl bg-white border border-slate-200 text-brand-600 flex items-center justify-center font-bold text-lg">
                     <i class="fa-solid fa-hands-praying"></i>
                 </div>
@@ -357,7 +357,7 @@
                 </p>
             </div>
 
-            <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 space-y-3">
+            <div class="bg-slate-50 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 space-y-3">
                 <div class="w-10 h-10 rounded-xl bg-white border border-slate-200 text-amber-600 flex items-center justify-center font-bold text-lg">
                     <i class="fa-solid fa-medal"></i>
                 </div>
@@ -367,7 +367,7 @@
                 </p>
             </div>
 
-            <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 space-y-3">
+            <div class="bg-slate-50 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 space-y-3">
                 <div class="w-10 h-10 rounded-xl bg-white border border-slate-200 text-emerald-600 flex items-center justify-center font-bold text-lg">
                     <i class="fa-solid fa-landmark"></i>
                 </div>
@@ -380,7 +380,7 @@
 
         <!-- Misi Satuan Pendidikan (7 Butir Lengkap) -->
         <div class="space-y-6 pt-4">
-            <div class="border-b border-slate-200 pb-3 flex items-center justify-between">
+            <div class="flex flex-col items-start gap-3 border-b border-slate-200 pb-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                     <h3 class="text-lg font-bold text-slate-900">7 Misi Satuan Pendidikan SMPN 3 Ngawen</h3>
                     <p class="text-xs text-slate-500">Langkah operasional dalam mewujudkan visi sekolah secara nyata dan terukur.</p>
@@ -474,12 +474,12 @@
 </section>
 
 <!-- Profil Sekolah & Lingkungan Belajar -->
-<section id="profil" class="py-16 bg-slate-50 border-b border-slate-200">
+<section id="profil" class="py-10 sm:py-16 bg-slate-50 border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid lg:grid-cols-12 gap-10 items-center">
+        <div class="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
             
             <div class="lg:col-span-5">
-                <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-4">
+                <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-8 border border-slate-200 shadow-sm space-y-4">
                     <div class="w-12 h-12 rounded-xl bg-blue-50 text-brand-600 flex items-center justify-center text-xl font-bold">
                         <i class="fa-solid fa-quote-left"></i>
                     </div>
@@ -516,20 +516,20 @@
                 </p>
 
                 <div class="grid sm:grid-cols-2 gap-4 pt-2">
-                    <div class="p-4 rounded-xl bg-white border border-slate-200 flex items-center gap-3">
+                    <div class="min-w-0 p-3 sm:p-4 rounded-xl bg-white border border-slate-200 flex items-center gap-3">
                         <div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0">
                             <i class="fa-solid fa-leaf text-base"></i>
                         </div>
-                        <div>
+                        <div class="min-w-0">
                             <div class="font-bold text-slate-800 text-xs">Lingkungan Sehat & Asri</div>
                             <div class="text-[11px] text-slate-500">Penataan taman dan pembiasaan budaya bersih.</div>
                         </div>
                     </div>
-                    <div class="p-4 rounded-xl bg-white border border-slate-200 flex items-center gap-3">
+                    <div class="min-w-0 p-3 sm:p-4 rounded-xl bg-white border border-slate-200 flex items-center gap-3">
                         <div class="w-10 h-10 rounded-lg bg-blue-50 text-brand-600 flex items-center justify-center shrink-0">
                             <i class="fa-solid fa-network-wired text-base"></i>
                         </div>
-                        <div>
+                        <div class="min-w-0">
                             <div class="font-bold text-slate-800 text-xs">Laboratorium Komputer CBT</div>
                             <div class="text-[11px] text-slate-500">Fasilitas ujian online mandiri terpercaya.</div>
                         </div>
@@ -542,8 +542,8 @@
 </section>
 
 <!-- Program Unggulan Section -->
-<section id="program" class="py-16 bg-white border-b border-slate-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+<section id="program" class="py-10 sm:py-16 bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
         <div class="text-center max-w-3xl mx-auto space-y-2">
             <span class="inline-block px-3 py-1 rounded-md bg-blue-50 text-brand-700 text-xs font-bold uppercase tracking-wider border border-blue-200">
                 Layanan & Pengembangan Diri
@@ -552,9 +552,9 @@
             <p class="text-xs sm:text-sm text-slate-600">Inovasi pembelajaran dan wadah minat bakat untuk memfasilitasi pelajar yang berjiwa kompetitif.</p>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-6">
+        <div class="grid md:grid-cols-3 gap-4 sm:gap-6">
             <!-- Program 1: Espega Sinau CBT -->
-            <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 flex flex-col justify-between space-y-5 hover:border-brand-400 transition-colors">
+            <div class="bg-slate-50 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 flex flex-col justify-between space-y-5 hover:border-brand-400 transition-colors">
                 <div class="space-y-3">
                     <div class="w-11 h-11 rounded-xl bg-white border border-slate-200 text-brand-600 flex items-center justify-center text-lg">
                         <i class="fa-solid fa-laptop-code"></i>
@@ -571,7 +571,7 @@
             </div>
 
             <!-- Program 2: Literasi & Karakter -->
-            <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 flex flex-col justify-between space-y-5 hover:border-brand-400 transition-colors">
+            <div class="bg-slate-50 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 flex flex-col justify-between space-y-5 hover:border-brand-400 transition-colors">
                 <div class="space-y-3">
                     <div class="w-11 h-11 rounded-xl bg-white border border-slate-200 text-emerald-600 flex items-center justify-center text-lg">
                         <i class="fa-solid fa-book-open-reader"></i>
@@ -588,7 +588,7 @@
             </div>
 
             <!-- Program 3: Ekstrakurikuler & Inklusi -->
-            <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 flex flex-col justify-between space-y-5 hover:border-brand-400 transition-colors">
+            <div class="bg-slate-50 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 flex flex-col justify-between space-y-5 hover:border-brand-400 transition-colors">
                 <div class="space-y-3">
                     <div class="w-11 h-11 rounded-xl bg-white border border-slate-200 text-amber-600 flex items-center justify-center text-lg">
                         <i class="fa-solid fa-users-viewfinder"></i>
@@ -609,8 +609,8 @@
 
 
 <!-- Berita & Informasi Sekolah -->
-<section id="berita" class="py-16 bg-slate-50 border-b border-slate-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+<section id="berita" class="py-10 sm:py-16 bg-slate-50 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
         
         <!-- Header Section -->
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
@@ -632,7 +632,7 @@
         </div>
 
         <!-- Filter Bar di Website (Tahun Ajaran & Bulan) -->
-        <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm">
+        <div class="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-4 border border-slate-200 shadow-sm">
             <form method="GET" action="{{ route('landing') }}#berita" class="grid grid-cols-1 sm:grid-cols-5 gap-3">
                 <!-- Filter Tahun Ajaran -->
                 <div>
@@ -675,7 +675,7 @@
                 </div>
 
                 <div class="flex items-end gap-2">
-                    <button type="submit" class="w-full py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition">
+                    <button type="submit" class="min-h-11 w-full py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition">
                         Terapkan Filter
                     </button>
                     @if(request()->hasAny(['academic_year_id', 'bulan', 'kategori', 'q']))
@@ -733,7 +733,7 @@
                                 </span>
                             @endif
 
-                            <span>{{ $item->tanggal ? $item->tanggal->format('d M Y') : '-' }}</span>
+                            <span class="shrink-0">{{ $item->tanggal ? $item->tanggal->format('d M Y') : '-' }}</span>
                         </div>
 
                         <h3 class="font-bold text-slate-900 text-sm sm:text-base leading-snug group-hover:text-brand-600 transition-colors line-clamp-2" title="{{ $item->judul }}">
@@ -874,8 +874,8 @@
 </script>
 
 <!-- Call to Action Banner (Clean Solid) -->
-<section class="py-14 bg-brand-900 text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-5">
+<section class="py-10 sm:py-14 bg-brand-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4 sm:space-y-5">
         <div class="w-12 h-12 rounded-xl bg-brand-800 text-amber-300 flex items-center justify-center mx-auto text-xl border border-brand-700">
             <i class="fa-solid fa-graduation-cap"></i>
         </div>
@@ -893,9 +893,9 @@
 </section>
 
 <!-- Kontak & Alamat Sekolah -->
-<section id="kontak" class="py-16 bg-white border-b border-slate-200">
+<section id="kontak" class="py-10 sm:py-16 bg-white border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid lg:grid-cols-12 gap-10">
+        <div class="grid lg:grid-cols-12 gap-8 lg:gap-10">
             
             <div class="lg:col-span-5 space-y-6">
                 <div>
@@ -907,31 +907,31 @@
                 </div>
 
                 <div class="space-y-3">
-                    <div class="flex items-start gap-3.5 p-4 rounded-xl bg-slate-50 border border-slate-200">
+                    <div class="flex min-w-0 items-start gap-3 p-3.5 sm:gap-3.5 sm:p-4 rounded-xl bg-slate-50 border border-slate-200">
                         <div class="w-9 h-9 rounded-lg bg-white border border-slate-200 text-brand-600 flex items-center justify-center shrink-0">
                             <i class="fa-solid fa-map-location-dot text-sm"></i>
                         </div>
-                        <div>
+                        <div class="min-w-0">
                             <div class="text-[11px] font-bold text-slate-500 uppercase">Alamat Satuan Pendidikan</div>
                             <div class="text-xs font-bold text-slate-900 mt-0.5">Jl. Raya Ngawen, Kec. Ngawen, Kabupaten Gunungkidul, Daerah Istimewa Yogyakarta</div>
                         </div>
                     </div>
 
-                    <div class="flex items-start gap-3.5 p-4 rounded-xl bg-slate-50 border border-slate-200">
+                    <div class="flex min-w-0 items-start gap-3 p-3.5 sm:gap-3.5 sm:p-4 rounded-xl bg-slate-50 border border-slate-200">
                         <div class="w-9 h-9 rounded-lg bg-white border border-slate-200 text-brand-600 flex items-center justify-center shrink-0">
                             <i class="fa-solid fa-envelope text-sm"></i>
                         </div>
-                        <div>
+                        <div class="min-w-0">
                             <div class="text-[11px] font-bold text-slate-500 uppercase">Email Resmi</div>
-                            <div class="text-xs font-bold text-slate-900 mt-0.5">smpnegeri3ngawen@gmail.com</div>
+                            <div class="break-all text-xs font-bold text-slate-900 mt-0.5">smpnegeri3ngawen@gmail.com</div>
                         </div>
                     </div>
 
-                    <div class="flex items-start gap-3.5 p-4 rounded-xl bg-slate-50 border border-slate-200">
+                    <div class="flex min-w-0 items-start gap-3 p-3.5 sm:gap-3.5 sm:p-4 rounded-xl bg-slate-50 border border-slate-200">
                         <div class="w-9 h-9 rounded-lg bg-white border border-slate-200 text-brand-600 flex items-center justify-center shrink-0">
                             <i class="fa-solid fa-phone text-sm"></i>
                         </div>
-                        <div>
+                        <div class="min-w-0">
                             <div class="text-[11px] font-bold text-slate-500 uppercase">Jam Pelayanan Kantor</div>
                             <div class="text-xs font-bold text-slate-900 mt-0.5">Senin - Jumat : 07.00 - 15.30 WIB</div>
                         </div>
@@ -941,15 +941,15 @@
 
             <!-- Pusat Layanan Permohonan Informasi & Pelacakan Tiket -->
             <div class="lg:col-span-7">
-                <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-5">
+                <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-8 border border-slate-200 shadow-sm space-y-5">
                     
                     <!-- Tab Switcher -->
-                    <div class="flex items-center gap-2 p-1.5 rounded-xl bg-slate-100 border border-slate-200/80">
-                        <button type="button" id="tabBtnKirim" onclick="switchPermohonanTab('kirim')" class="flex-1 py-2.5 px-4 rounded-lg text-xs font-extrabold transition-all flex items-center justify-center gap-2 bg-white text-brand-700 shadow-sm">
+                    <div class="flex flex-col gap-1.5 p-1.5 rounded-xl bg-slate-100 border border-slate-200/80 sm:flex-row">
+                        <button type="button" id="tabBtnKirim" onclick="switchPermohonanTab('kirim')" class="flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-white px-3 py-2.5 text-xs font-extrabold text-brand-700 shadow-sm transition-all sm:flex-1 sm:px-4">
                             <i class="fa-solid fa-paper-plane text-xs"></i>
                             <span>Kirim Permohonan Baru</span>
                         </button>
-                        <button type="button" id="tabBtnLacak" onclick="switchPermohonanTab('lacak')" class="flex-1 py-2.5 px-4 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-2 text-slate-600 hover:text-slate-900">
+                        <button type="button" id="tabBtnLacak" onclick="switchPermohonanTab('lacak')" class="flex min-h-11 w-full items-center justify-center gap-2 rounded-lg px-3 py-2.5 text-xs font-bold text-slate-600 transition-all hover:text-slate-900 sm:flex-1 sm:px-4">
                             <i class="fa-solid fa-magnifying-glass text-xs"></i>
                             <span>Cek Status Laporan</span>
                         </button>
@@ -967,22 +967,22 @@
                             <div class="grid sm:grid-cols-2 gap-4 mb-4">
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nama Lengkap <span class="text-rose-500">*</span></label>
-                                    <input type="text" name="nama_lengkap" id="input_nama_lengkap" required placeholder="Nama pemohon" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white text-xs focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
+                                    <input type="text" name="nama_lengkap" id="input_nama_lengkap" required placeholder="Nama pemohon" class="min-h-11 w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 uppercase mb-1">No. WhatsApp / Email <span class="text-rose-500">*</span></label>
-                                    <input type="text" name="kontak" id="input_kontak" required placeholder="08xxxxxxxxxx atau email" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white text-xs focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
+                                    <input type="text" name="kontak" id="input_kontak" required placeholder="08xxxxxxxxxx atau email" class="min-h-11 w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
                                 </div>
                             </div>
                             <div class="mb-4">
                                 <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Keperluan / Subjek <span class="text-rose-500">*</span></label>
-                                <input type="text" name="subjek" id="input_subjek" required placeholder="Contoh: Informasi PPDB, Mutasi Siswa, Legalisir Ijazah" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white text-xs focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
+                                <input type="text" name="subjek" id="input_subjek" required placeholder="Contoh: Informasi PPDB, Mutasi Siswa, Legalisir Ijazah" class="min-h-11 w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
                             </div>
                             <div class="mb-5">
                                 <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Isi Permohonan / Uraian Pesan <span class="text-rose-500">*</span></label>
-                                <textarea name="pesan" id="input_pesan" rows="4" required placeholder="Tuliskan secara lengkap dan jelas permohonan informasi atau saran pengaduan yang ingin Anda sampaikan..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white text-xs focus:outline-none focus:ring-2 focus:ring-brand-500 transition leading-relaxed"></textarea>
+                                <textarea name="pesan" id="input_pesan" rows="4" required placeholder="Tuliskan secara lengkap dan jelas permohonan informasi atau saran pengaduan yang ingin Anda sampaikan..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition leading-relaxed"></textarea>
                             </div>
-                            <button type="submit" id="btnSubmitPermohonan" class="px-6 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-xs shadow-sm transition-colors flex items-center gap-2">
+                            <button type="submit" id="btnSubmitPermohonan" class="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-brand-600 px-6 py-2.5 text-xs font-extrabold text-white shadow-sm transition-colors hover:bg-brand-700">
                                 <i class="fa-solid fa-paper-plane"></i>
                                 <span>Kirim Permohonan</span>
                             </button>
@@ -996,13 +996,13 @@
                             <p class="text-xs text-slate-500 mt-0.5">Masukkan nomor laporan (contoh: <code class="font-mono text-brand-600 bg-brand-50 px-1 py-0.5 rounded">PI-20261113-XXXXX</code>) yang Anda peroleh saat mengirimkan permohonan.</p>
                         </div>
 
-                        <form id="formCekLaporan" onsubmit="cekStatusLaporan(event)" class="flex flex-col sm:flex-row gap-2">
+                        <form id="formCekLaporan" onsubmit="cekStatusLaporan(event)" class="flex flex-col gap-2 sm:flex-row">
                             @csrf
                             <div class="relative flex-1">
                                 <i class="fa-solid fa-ticket absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-                                <input type="text" name="nomor_laporan" id="input_cek_nomor" required placeholder="Masukkan Nomor Laporan..." class="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white font-mono text-xs uppercase focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
+                                <input type="text" name="nomor_laporan" id="input_cek_nomor" required placeholder="Masukkan Nomor Laporan..." class="min-h-11 w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white font-mono text-sm uppercase focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
                             </div>
-                            <button type="submit" id="btnCekLaporan" class="px-6 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs shadow-sm transition-colors flex items-center justify-center gap-2 shrink-0">
+                            <button type="submit" id="btnCekLaporan" class="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-xl bg-slate-900 px-6 py-2.5 text-xs font-extrabold text-white shadow-sm transition-colors hover:bg-slate-800">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                                 <span>Cek Status</span>
                             </button>
@@ -1258,7 +1258,7 @@
 </script>
 
 <!-- Footer -->
-<footer class="bg-slate-900 text-slate-400 py-12 text-xs border-t border-slate-800">
+<footer class="bg-slate-900 text-slate-400 py-8 sm:py-12 text-xs border-t border-slate-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             <div class="md:col-span-2 space-y-3">
